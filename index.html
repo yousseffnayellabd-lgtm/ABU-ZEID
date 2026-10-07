@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- 🟢 تضمين مكتبة EmailJS بالبيانات الصحيحة -->
+    <!-- 🟢 تضمين مكتبة EmailJS للإرسال المباشر -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
@@ -727,7 +727,7 @@
 
         .brochure-info i {
             font-size: 28px;
-            color: #e74c3c;
+            color: #e74c3c; /* لون أيقونة الـ PDF */
         }
 
         .brochure-title {
@@ -1038,6 +1038,7 @@
                 <p data-ar="تفضل بزيارة أقرب فرع إليك أو تواصل معنا" data-en="Visit your nearest branch or contact us">تفضل بزيارة أقرب فرع إليك أو تواصل معنا</p>
             </div>
 
+            <!-- الهوت لاين -->
             <div class="hotline-banner">
                 <i class="fa-solid fa-headset"></i>
                 <span data-ar="الخط الساخن: 15079" data-en="Hotline: 15079">الخط الساخن: 15079</span>
@@ -1157,7 +1158,7 @@
             </div>
         </div>
 
-        <!-- قسم بروشورات السيارات (PDF) -->
+        <!-- 🟢 قسم بروشورات السيارات (PDF) -->
         <div class="brochures-section" id="brochuresSection">
             <div class="section-title">
                 <h2 data-ar="بروشورات السيارات" data-en="Car Brochures">بروشورات السيارات</h2>
@@ -1165,6 +1166,7 @@
             </div>
 
             <div class="brochures-grid">
+                <!-- بروشور 1 -->
                 <div class="brochure-card">
                     <div class="brochure-info">
                         <i class="fa-solid fa-file-pdf"></i>
@@ -1175,6 +1177,7 @@
                     </a>
                 </div>
 
+                <!-- بروشور 2 -->
                 <div class="brochure-card">
                     <div class="brochure-info">
                         <i class="fa-solid fa-file-pdf"></i>
@@ -1185,6 +1188,7 @@
                     </a>
                 </div>
 
+                <!-- بروشور 3 -->
                 <div class="brochure-card">
                     <div class="brochure-info">
                         <i class="fa-solid fa-file-pdf"></i>
@@ -1195,6 +1199,7 @@
                     </a>
                 </div>
 
+                <!-- بروشور 4 -->
                 <div class="brochure-card">
                     <div class="brochure-info">
                         <i class="fa-solid fa-file-pdf"></i>
@@ -1205,6 +1210,7 @@
                     </a>
                 </div>
 
+                <!-- بروشور 5 -->
                 <div class="brochure-card">
                     <div class="brochure-info">
                         <i class="fa-solid fa-file-pdf"></i>
@@ -1215,6 +1221,7 @@
                     </a>
                 </div>
 
+                <!-- بروشور 6 -->
                 <div class="brochure-card">
                     <div class="brochure-info">
                         <i class="fa-solid fa-file-pdf"></i>
@@ -1232,6 +1239,7 @@
         <p>© 2026 أبو زيد للسيارات. جميع الحقوق محفوظة.</p>
     </footer>
 
+    <!-- الدوال البرمجية -->
     <script>
         const carModelsData = {
             Audi: [
@@ -1516,7 +1524,6 @@
             titleEl.innerText = currentLang === 'en' ? titleEl.getAttribute('data-en') : titleEl.getAttribute('data-ar');
         }
 
-        // 🟢 دالة إرسال الطلب عبر EmailJS بالبيانات الخاصة بحسابك
         function sendOrderEmail(event) {
             event.preventDefault();
 
@@ -1524,11 +1531,10 @@
                 client_name: document.getElementById('clientName').value,
                 client_phone: document.getElementById('clientPhone').value,
                 car_model: document.getElementById('carModel').value,
-                notes: document.getElementById('clientNotes').value,
-                name: document.getElementById('clientName').value
+                notes: document.getElementById('clientNotes').value
             };
 
-            emailjs.send('service_evsoisy', 'template_ozyld7d', templateParams)
+            emailjs.send('service_56zr0fi', 'template_g1jbo1p', templateParams)
                 .then(function(response) {
                     alert('تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً.');
                     document.getElementById('orderForm').reset();
