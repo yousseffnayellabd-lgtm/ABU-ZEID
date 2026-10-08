@@ -16,8 +16,8 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            emailjs.init("nKzheMXAdAy00w50v");       
-        })();
+        emailjs.init("tOMRkcB1voJSdq3sh"); // استبدل "YOUR_USER_ID" بمعرف المستخدم الخاص بك من EmailJS
+       })();
     </script>
 
     <style>
@@ -1356,8 +1356,7 @@
             ],
             Proton: [
                 ["Proton Saga", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSITjACFWKenE158rOIlKxA67D5qO3zcyhpen1Y7WafOg&s=10", "750,000 ج.م", "150,000 ج.م"]
-            ],  
-            Kaiyi: [
+           ],Kaiyi: [
              ["Kaiyi X3 Pro", "https://media.almalnews.com/2026/6/large/2955873276883202606060520112011.jpg", "1,200,000 ج.م", "240,000 ج.م"],
              ["Kaiyi E5", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmOnAU6ZfZo-Be3doi9G-y165z5d9lCCv9jKCO_l0XicoZsjyP-5Hnu8k&s=10", "1,250,000 ج.م", "250,000 ج.م"]
             ],
@@ -1534,8 +1533,8 @@
                 notes: document.getElementById('clientNotes').value
             };
 
-            emailjs.send('service_56zr0fi', 'template_g1jbo1p', templateParams)
-                .then(function(response) {
+  emailjs.send('service_evsoisy', 'template_ozyld7d', templateParams)      
+            .then(function(response) {
                     alert('تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً.');
                     document.getElementById('orderForm').reset();
                 }, function(error) {
