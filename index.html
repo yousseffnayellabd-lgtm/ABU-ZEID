@@ -302,6 +302,36 @@
             color: var(--text-main);
         }
 
+        .brand-filters {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .brand-filter-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 10px 22px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .brand-filter-btn:hover,
+        .brand-filter-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+        }
+
+        .brand-card.is-filtered-out {
+            display: none !important;
+        }
         /* نافذة الموديلات */
         .models-page {
             position: fixed;
@@ -892,6 +922,17 @@
             </h2>
         </div>
 
+        <div class="brand-filters" role="group" aria-label="تصنيف التوكيلات">
+            <button type="button" class="brand-filter-btn active" onclick="filterBrands('all')" data-ar="كل العربيات" data-en="All Cars">كل العربيات</button>
+            <button type="button" class="brand-filter-btn" onclick="filterBrands('european')" data-ar="أوروبي" data-en="European">أوروبي</button>
+            <button type="button" class="brand-filter-btn" onclick="filterBrands('swedish')" data-ar="سويدي" data-en="Swedish">سويدي</button>
+            <button type="button" class="brand-filter-btn" onclick="filterBrands('japanese')" data-ar="ياباني" data-en="Japanese">ياباني</button>
+            <button type="button" class="brand-filter-btn" onclick="filterBrands('chinese')" data-ar="صيني" data-en="Chinese">صيني</button>
+            <button type="button" class="brand-filter-btn" onclick="filterBrands('malaysian')" data-ar="ماليزي" data-en="Malaysian">ماليزي</button>
+            <button type="button" class="brand-filter-btn" onclick="filterBrands('korean')" data-ar="كوري" data-en="Korean">كوري</button>
+            <button type="button" class="brand-filter-btn" onclick="filterBrands('electric')" data-ar="كهربائي فقط" data-en="Electric Only">كهربائي فقط</button>
+        </div>
+
         <div class="brands-grid" id="brandsGrid">
             <div class="brand-card" onclick="openModels('BMW')">
                 <div class="logo-box"><img src="https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg" alt="BMW" class="brand-img"></div>
@@ -1099,10 +1140,29 @@
                         <label for="carModel" data-ar="نوع السيارة المطلوبة" data-en="Car Model">
                             نوع السيارة المطلوبة
                         </label>
-                        <input type="text" id="carModel" name="car_model"
+                        <input type="text" id="carModel" name="car_model" oninput="updateMotorTypeVisibility()"
                                required placeholder="مثال: BMW X5">
                     </div>
 
+                    <div class="form-group-custom">
+                        <label for="carCategory" data-ar="فئة السيارة" data-en="Car Trim">
+                            فئة السيارة
+                        </label>
+                        <input type="text" id="carCategory" name="car_category"
+                               placeholder="مثال: Luxury أو Comfort">
+                    </div>
+                    <div class="form-group-custom" id="motorTypeGroup" style="display: none;">
+                        <label for="motorType" data-ar="نوع الموتور" data-en="Motor Type">
+                            نوع الموتور
+                        </label>
+                        <select id="motorType" name="motor_type" disabled>
+                            <option value="" disabled selected data-ar="اختر نوع الموتور" data-en="Choose motor type">
+                                اختر نوع الموتور
+                            </option>
+                            <option value="SINGLE MOTOR">SINGLE MOTOR</option>
+                            <option value="TWIN MOTOR">TWIN MOTOR</option>
+                        </select>
+                    </div>
                     <div class="form-group-custom">
                         <label for="paymentMethod" data-ar="طريقة الدفع" data-en="Payment Method">
                             طريقة الدفع
@@ -1688,14 +1748,17 @@
             ],
 
             Kaiyi: [
-                ["Kaiyi X3 Pro", "https://media.almalnews.com/2026/6/large/2955873276883202606060520112011.jpg", "1,200,000 ج.م", "240,000 ج.م"],
-                ["Kaiyi E5", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmOnAU6ZfZo-Be3doi9G-y165z5d9lCCv9jKCO_l0XicoZsjyP-5Hnu8k&s=10", "1,250,000 ج.م", "250,000 ج.م"]
+                ["Kaiyi X3 Pro", "https://media.almalnews.com/2026/6/large/2955873276883202606060520112011.jpg", "900,000 ج.م", "250,000 ج.م"],
+                ["Kaiyi X7", "https://www.autoexpress-eg.com/wp-content/uploads/2024/01/%D9%83%D8%A7%D9%8A%D9%8A-X7.jpeg", "1,285,000 ج.م", "420,000 ج.م"],
+                ["Kaiyi E5", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmOnAU6ZfZo-Be3doi9G-y165z5d9lCCv9jKCO_l0XicoZsjyP-5Hnu8k&s=10", "888,000 ج.م", "250,000 ج.م"]
             ],
 
             MG: [
-                ["MG 5", "https://s3.eu-central-1.amazonaws.com/v3-ncg.motory.com/vehicle-new/800x600/l-1742204455.8218-67d7ee27c8a08_outbound.webp", "1,050,000 ج.م", "210,000 ج.م"],
-                ["MG 7", "https://blog.dubizzle.com.eg/wp-content/uploads/2025/03/MG7-1.png", "1,900,000 ج.م", "380,000 ج.م"],
-                ["MG ZS", "https://images.netdirector.co.uk/gforces-auto/image/upload/q_auto,c_fill,f_auto,fl_lossy,w_1920,h_1080/auto-client/becbc82e70e56d3323a7084675de8ffd/2025_07_18_paulrigby_mg_nvd_new_mg_zs_hybrid_banner_desktop.jpg", "1,300,000 ج.م", "260,000 ج.م"],
+                ["MG 5", "https://s3.eu-central-1.amazonaws.com/v3-ncg.motory.com/vehicle-new/800x600/l-1742204455.8218-67d7ee27c8a08_outbound.webp", "857,000 ج.م", "250,000 ج.م"],
+                ["MG 1", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXbjw6PUTp4U_PFK8ZLuVl_sVzG29iBJdnkW2Hh-N-KQ&s=10", "1,400,000 ج.م", "250,000 ج.م"],
+                ["MG 7", "https://blog.dubizzle.com.eg/wp-content/uploads/2025/03/MG7-1.png", "1,600,000 ج.م", "350,000 ج.م"],
+                ["MG ZS", "https://images.netdirector.co.uk/gforces-auto/image/upload/q_auto,c_fill,f_auto,fl_lossy,w_1920,h_1080/auto-client/becbc82e70e56d3323a7084675de8ffd/2025_07_18_paulrigby_mg_nvd_new_mg_zs_hybrid_banner_desktop.jpg", "1,150,000 ج.م", "330,000 ج.م"],
+                ["MG G50 PLUS", "https://www.mgmotor.com.eg/wp-content/uploads/2025/10/Ext.webp", "1,300,000 ج.م", "350,000 ج.م"],
                 ["MG HS", "https://d3jvxfsgjxj1vz.cloudfront.net/news/wp-content/uploads/2025/01/08121807/2025-mg-hs-launched-in-the-uae-5.webp", "1,750,000 ج.م", "350,000 ج.م"]
             ],
 
@@ -1781,13 +1844,50 @@
             document.getElementById('navLinks').classList.remove('active');
         }
 
+        const brandCategories = {
+            european: ['BMW', 'Audi', 'Volkswagen', 'Opel', 'Mercedes', 'Fiat', 'Peugeot', 'Renault', 'Citroen', 'Skoda', 'Seat', 'Cupra'],
+            swedish: ['Volvo'],
+            japanese: ['Nissan', 'Toyota', 'Suzuki', 'Mazda', 'Subaru'],
+            chinese: ['Kaiyi', 'MG', 'Deepal', 'Chery', 'BYD', 'Changan', 'GAC', 'Soueast', 'BAIC', 'Haval', 'Geely', 'Jetour'],
+            malaysian: ['Proton'],
+            korean: ['Hyundai', 'Kia', 'KGM'],
+            electric: ['BYD', 'Volvo']
+        };
+
+        const electricModelsByBrand = {
+            BYD: ['BYD Dolphin', 'BYD Atto 2', 'BYD Sealion'],
+            Volvo: ['Volvo EX30', 'Volvo EX90']
+        };
+
+        let activeBrandFilter = 'all';
+
+        function filterBrands(category) {
+            activeBrandFilter = category;
+            const cards = document.querySelectorAll('#brandsGrid .brand-card');
+            const allowedBrands = category === 'all' ? null : (brandCategories[category] || []);
+
+            cards.forEach(card => {
+                const match = card.getAttribute('onclick').match(/openModels\('([^']+)'\)/);
+                const brandName = match ? match[1] : '';
+                card.classList.toggle('is-filtered-out', allowedBrands !== null && !allowedBrands.includes(brandName));
+            });
+
+            document.querySelectorAll('.brand-filter-btn').forEach(button => {
+                button.classList.toggle('active', button.getAttribute('onclick') === `filterBrands('${category}')`);
+            });
+        }
+
         function openModels(brandName) {
             document.getElementById('modelsTitle').innerText = brandName;
 
             const grid = document.getElementById('modelsGrid');
             grid.innerHTML = '';
 
-            const models = carModelsData[brandName] || [];
+            let models = carModelsData[brandName] || [];
+            if (activeBrandFilter === 'electric') {
+                const electricModels = electricModelsByBrand[brandName] || [];
+                models = models.filter(car => electricModels.includes(car[0]));
+            }
 
             if (models.length === 0) {
                 grid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:var(--text-muted);">قريباً سيتم إضافة الموديلات</p>';
@@ -1834,9 +1934,25 @@
             document.getElementById('modelsPage').classList.add('active');
         }
 
+        function updateMotorTypeVisibility() {
+            const modelInput = document.getElementById('carModel');
+            const motorTypeGroup = document.getElementById('motorTypeGroup');
+            const motorTypeSelect = document.getElementById('motorType');
+            const selectedModel = modelInput.value.trim().toLowerCase();
+            const needsMotorType = ['volvo ex30', 'volvo ex90'].includes(selectedModel);
+
+            motorTypeGroup.style.display = needsMotorType ? 'flex' : 'none';
+            motorTypeSelect.disabled = !needsMotorType;
+            motorTypeSelect.required = needsMotorType;
+
+            if (!needsMotorType) {
+                motorTypeSelect.value = '';
+            }
+        }
         function selectCarModel(carName) {
             closeModels();
             document.getElementById('carModel').value = carName;
+            updateMotorTypeVisibility();
             window.location.href = '#carBookingPage';
         }
 
@@ -1887,9 +2003,13 @@
                 : titleEl.getAttribute('data-ar');
         }
 
+        updateMotorTypeVisibility();
+
         function sendOrderEmail(event) {
             event.preventDefault();
 
+            const carCategory = document.getElementById('carCategory').value.trim();
+            const motorType = document.getElementById('motorType').value;
             const paymentMethod = document.getElementById('paymentMethod').value;
             const clientNotes = document.getElementById('clientNotes').value.trim();
 
@@ -1897,14 +2017,19 @@
                 client_name: document.getElementById('clientName').value,
                 client_phone: document.getElementById('clientPhone').value,
                 car_model: document.getElementById('carModel').value,
+                car_category: carCategory,
+                motor_type: motorType,
                 payment_method: paymentMethod,
-                notes: 'طريقة الدفع: ' + paymentMethod +
+                notes: (carCategory ? 'فئة السيارة: ' + carCategory + '\n' : '') +
+                    (motorType ? 'نوع الموتور: ' + motorType + '\n' : '') +
+                    'طريقة الدفع: ' + paymentMethod +
                     (clientNotes ? '\nملاحظات إضافية: ' + clientNotes : '')
             };
             emailjs.send('service_evsoisy', 'template_ozyld7d', templateParams)
                 .then(function (response) {
                     alert('تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً.');
                     document.getElementById('orderForm').reset();
+                    updateMotorTypeVisibility();
                 }, function (error) {
                     alert('حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى.');
                     console.error('FAILED...', error);

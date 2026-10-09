@@ -290,6 +290,36 @@ header {
     color: var(--text-main);
 }
 
+.brand-filters {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.brand-filter-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 10px 22px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.brand-filter-btn:hover,
+.brand-filter-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+}
+
+.brand-card.is-filtered-out {
+    display: none !important;
+}
 .search-box {
     max-width: 500px;
     margin: 0 auto 30px auto;
